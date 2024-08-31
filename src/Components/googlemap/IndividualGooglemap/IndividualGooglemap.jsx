@@ -258,7 +258,7 @@ function IndividualGooglemap({ data, setIndividualMap, individualDataObj }) {
         setGeofenceData(null);
   
     try {
-      const username = "hbgadget221@gmail.com";
+      const username = "Transport";
       const password = "123456";
       const token = btoa(`${username}:${password}`);
       const response1 = await axios.get(
@@ -275,7 +275,7 @@ function IndividualGooglemap({ data, setIndividualMap, individualDataObj }) {
     }
     
     try {
-      const username = "hbgadget221@gmail.com";
+      const username = "Transport";
       const password = "123456";
       const token = btoa(`${username}:${password}`);
       const response2 = await axios.get(

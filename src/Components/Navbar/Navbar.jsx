@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -30,11 +30,15 @@ import LockResetTwoToneIcon from '@mui/icons-material/LockResetTwoTone';
 import { Login } from '@mui/icons-material';
 import {Link} from 'react-router-dom';
 import "./Navbar.css";
+import { GlobalContext } from '../../Context/Context.js';
+
 
 
 const pages = [
   { title: 'Home', icon: <HomeIcon />, arr: ['Dashboard', 'Advanced Dashboard', 'Analytics Dashboard'] },
   { title: 'Master', icon: <DriveEtaIcon />, arr: ['Assets', 'Assets Type','Assets Command','Assets Category','Assets Class','Assets Group','Users','Assets URL','User Profile','Users Assets Mapping','User Menu Master','Import Location','Assets Division','Assets Owner','Driver Master','Over speed setting','Device Settings','Geo Data', 'Landmark Group','Commands','Top Main Menu Master','Import Trip','Top Menu Master','Broker','Address Book','Main Menu Master','Address Book Group','User Display Settings','RFID','Telecom Master','Landmark Images','Landmark Waypoints','Emails'] },
+  { title: 'Users', icon: <DriveEtaIcon />, arr: ['Transporter', 'Client','Driver', 'Parent', 'Supervisior'] },
+
   { title: 'Geofencing', icon: <DriveEtaIcon />, arr: ['Create Landmark', 'Edit Landmarks','Create Route','Edit Routes','Create Area','Edit Areas','Create Zone','Edit Zones','Trips'] },
   { title: 'Reports', icon: <BarChartIcon />, arr: ['Summary', 'Stop Report', 'Area In/Out Report', 'Area Report', 'Landmark Distance', 'Landmark Report', 'Location Wise Distance', 'Distance Report', 'Run Report', 'Distance Graph', 'Speed Graph', 'Trip Report', 'All Point Report','RFID','Distance Between Report','Vehicle Average','Alerts','Data Logs','AC Report', 'Petrolling Report','Bin Details Report','ETA details report','ETA details'] },
   { title: 'Maintenance', icon: <SettingsIcon />, arr: ['Search','Add maintenance','Type of operation','Custom Profile'] },
@@ -44,6 +48,9 @@ export const Navbar = (props) => {
   const [selectedPage, setSelectedPage] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [filteredPages, setFilteredPages] = useState([]);
+
+  const {role} = useContext(GlobalContext);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,11 +59,41 @@ export const Navbar = (props) => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if (role == 1) {
+      setFilteredPages(pages);
+    } else if (role == 2 || role == 3) {
+      const pagesToFilter = [
+        "Home",
+        "Users",
+        "Reports",
+        "Maintenance",
+      ];
+      const filter = pages.filter((item) => pagesToFilter.includes(item.title));
+
+      setFilteredPages(filter);
+    }
+  }, []);
 
   const handleNavClick = (arr, title) => {
-    props.propFunc(arr);
-    props.propBool(true);  // Set sidebar to open
-    setSelectedPage(title);  // Set selected page
+    if (role === 1) {
+      
+      props.propFunc(arr);
+      props.propBool(true);
+      setSelectedPage(title);
+    } else if (role === 2) {
+      const updatedArr = arr.filter((item) => item !== "Transporter");
+      props.propFunc(updatedArr);
+      props.propBool(true);
+      setSelectedPage(title);
+    } else if (role === 3) {
+      const updatedArr = arr.filter(
+        (item) => item !== "Transporter" && item !== "Client"
+      );
+      props.propFunc(updatedArr);
+      props.propBool(true);
+      setSelectedPage(title);
+    }
   };
 
   const handleRedAlert = () =>{
@@ -85,7 +122,7 @@ export const Navbar = (props) => {
             
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-            {pages.map((page) => (
+            {filteredPages.map((page) => (
               <Button
                 key={page.title}
                 sx={{

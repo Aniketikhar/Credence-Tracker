@@ -6,6 +6,12 @@ import { CustomTabs } from "./Components/Tabs/Tabs.jsx";
 import React, { useState, useEffect } from "react";
 // import { Cards } from './Components/Cards/Cards.jsx';
 import { Googlemap } from "./Components/googlemap/googlemap.jsx";
+import Transporter from "./Components/VariousTables/Users/Transporter/Transporter.jsx";
+import Client from './Components/VariousTables/Users/Client/Client.jsx';
+import Parent from './Components/VariousTables/Users/Parent/Parent.jsx';
+import Driver from "./Components/VariousTables/Users/Driver/Driver.jsx";
+import Supervisior from './Components/VariousTables/Users/Supervisior/Supervisior.jsx';
+
 import { BasicSpeedDial } from "./Components/basicSpeedDial/basicSpeedDial.jsx";
 import { DistanceReport } from "./Components/VariousTables/Reports/DistanceReport/DistanceReport.jsx";
 import { Assets } from "./Components/VariousTables/Master/Assets/Assets.jsx";
@@ -89,7 +95,7 @@ function App() {
   useEffect(() => {
     const fetchDeviceData = async () => {
       try {
-        const username = "test"; // Replace with your actual username
+        const username = "Transport"; // Replace with your actual username
         const password = "123456"; // Replace with your actual password
         const token = btoa(`${username}:${password}`); // Base64 encode the username and password
         const response1 = await axios.get(
@@ -109,7 +115,7 @@ function App() {
 
     const fetchPositionData = async () => {
       try {
-        const username = "test"; 
+        const username = "Transport"; 
         const password = "123456"; 
         const token = btoa(`${username}:${password}`); 
 
@@ -254,6 +260,16 @@ function App() {
       setComponent("EditZones");
     } else if (item === "Trips") {
       setComponent("Trips");
+    } else if (item === "Transporter") {
+      setComponent("Transporter");
+    } else if (item === "Client") {
+      setComponent("Client");
+    } else if (item === "Driver") {
+      setComponent("Driver");
+    } else if (item === "Parent") {
+      setComponent("Parent");
+    } else if (item === "Supervisior") {
+      setComponent("Supervisior");
     }
 
     const tabIndex = tabs.indexOf(item);
@@ -364,6 +380,11 @@ function App() {
           {component === "EditAreas" && <EditAreas data={mergedData} />}
           {component === "EditZones" && <EditZones data={mergedData} />}
           {component === "Trips" && <Trips data={mergedData} />}
+          {component === "Transporter" && <Transporter data={mergedData} />}
+          {component === "Client" && <Client data={mergedData} />}
+          {component === "Parent" && <Parent data={mergedData} />}
+          {component === "Supervisior" && <Supervisior data={mergedData} />}
+          {component === "Driver" && <Driver data={mergedData} />}
 
           <BasicSpeedDial />
           {![
@@ -410,6 +431,11 @@ function App() {
             "EditAreas",
             "EditZones",
             "Trips",
+            'Transporter',
+            'Client',
+            'Parent',
+            'Driver',
+            'Supervisior'
           ].includes(component) && <Tablee data={mergedData} />}
         </div>
       </div>
