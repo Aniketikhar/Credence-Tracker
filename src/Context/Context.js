@@ -4,7 +4,7 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   
-  const [role , setRole] = useState(3);
+  const [role , setRole] = useState();
 
   return (
     <GlobalContext.Provider value={{ role , setRole }}>
