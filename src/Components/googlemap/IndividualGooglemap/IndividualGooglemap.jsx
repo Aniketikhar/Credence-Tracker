@@ -16,11 +16,11 @@ import IndividualNav from "./individualNav/IndividualNav.jsx";
 import IndividualInfo from "./IndividualInfo/IndividualInfo";
 import PlayBar from "./PlayBar/PlayBar.jsx";
 
-import carIcon from "../SVG/Car/C1.svg";
-import motorcycleIcon from "../SVG/Bike/bike1.svg";
-import JCBIcon from "../SVG/JCB1/j3.svg";
-import truckIcon from "../SVG/Truck/b1.svg";
-import autoIcon from "../SVG/Auto/a4.svg";
+import carIcon from "../SVG/car-s.png";
+import motorcycleIcon from "../SVG/bike-s.png";
+import JCBIcon from "../SVG/jcb-s.png";
+import truckIcon from "../SVG/truck-s.png";
+import autoIcon from "../SVG/auto-s.png";
 
 
 import truckIconTop from "../SVG/Vehicle Top View/Truck/Truck-Y.png";
